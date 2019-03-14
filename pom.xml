@@ -32,6 +32,31 @@
       <artifactId>spring-webmvc</artifactId>
       <version>${org.springframework-version}</version>
     </dependency>
+    
+	<!-- thymeleaf -->
+    <dependency>
+      <groupId>org.thymeleaf</groupId>
+      <artifactId>thymeleaf-spring4</artifactId>
+	  <version>3.0.9.RELEASE</version>
+      <scope>compile</scope>
+    </dependency>
+    
+    <!-- Thymeleaf 라이브러리 -->
+	<!-- https://mvnrepository.com/artifact/org.thymeleaf/thymeleaf-spring4 -->
+    <dependency>
+      <groupId>org.thymeleaf</groupId>
+      <artifactId>thymeleaf</artifactId>
+      <version>3.0.9.RELEASE</version>
+      <scope>compile</scope>
+    </dependency>
+    
+    <!-- thymeleaf-layout-dialect 라이브러리 -->
+	<!-- https://mvnrepository.com/artifact/nz.net.ultraq.thymeleaf/thymeleaf-layout-dialect -->
+	<dependency>
+	  <groupId>nz.net.ultraq.thymeleaf</groupId>
+	  <artifactId>thymeleaf-layout-dialect</artifactId>
+	  <version>2.3.0</version>
+    </dependency>
   </dependencies>
 
   <build>

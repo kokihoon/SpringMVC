@@ -57,6 +57,14 @@
 	  <artifactId>thymeleaf-layout-dialect</artifactId>
 	  <version>2.3.0</version>
     </dependency>
+    
+    
+    <!--  MySQL 라이브러리 -->
+    <dependency>
+    	<groupId>mysql</groupId>
+    	<artifactId>mysql-connector-java</artifactId>
+    	<version>5.1.9</version>
+    </dependency> 
   </dependencies>
 
   <build>

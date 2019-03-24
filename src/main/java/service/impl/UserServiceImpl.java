@@ -16,6 +16,6 @@ public class UserServiceImpl implements UserService{
 	
 	@Override
 	public User getUser(User user) throws Exception {
-		return userDAO.get(user);
+		return userDAO.login(user);
 	}
 }

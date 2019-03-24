@@ -14,17 +14,9 @@
 	  http://www.springframework.org/schema/beans/spring-beans.xsd    http://www.springframework.org/schema/context
 	  http://www.springframework.org/schema/context/spring-context.xsd">
 
-  <!--  <context:annotation-config />
-  <context:component-scan base-package="main.java.controller"/>
-  -->
+  <context:component-scan base-package="src.main.java.controller" />
   
-  <context:component-scan base-package="main.java.*">
-  	<context:include-filter type="annotation" expression="org.springframework.context.annotation.Configuration"/>
-  	<context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
-  	<context:include-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
-  	<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
-  	<context:include-filter type="regex" expression="(service|controller|dao)\..*"/>
-  </context:component-scan>
+  <mvc:annotation-driven/>
   <!-- thymeleaf View 설정 -->
   <beans:bean id="templateResolver" class="org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver">
   <beans:property name="prefix" value="/WEB-INF/views/" />
@@ -33,7 +25,7 @@
   <beans:property name="characterEncoding" value="UTF-8" />
   <beans:property name="cacheable" value="false" />
   </beans:bean>
- 
+
   <!-- thymeleaf laytout을 쓰기위해 3rd Party 추가 -->
   <beans:bean id="templateEngine" class="org.thymeleaf.spring4.SpringTemplateEngine">
   <beans:property name="templateResolver" ref="templateResolver" />
@@ -67,21 +59,31 @@
       </list>
     </property>
   </bean>
-  <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+<!--  <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
     <constructor-arg index="0" ref="sqlSession"/>
   </bean>
-
-
-<!-- 인터셉터 객체 생성 -->
-<beans:bean id="AuthLoginInterceptor" class="main.java.interceptor.AuthLoginInterceptor">
-</beans:bean>
-<!-- Interceptor 설정 -->
-<mvc:interceptors>
+-->
+  <beans:bean id="LoginInterceptor" class="main.java.interceptor.LoginInterceptor">
+  </beans:bean>
+  
+  <mvc:interceptors>
     <mvc:interceptor>
-        <mvc:mapping path="/**"/>         
+      <mvc:mapping path="/loginPost"/>
+      <beans:ref bean = "LoginInterceptor"/>
+    </mvc:interceptor>
+  </mvc:interceptors>
+  
+  
+  <!-- 인터셉터 객체 생성 -->
+  <beans:bean id="AuthLoginInterceptor" class="main.java.interceptor.AuthLoginInterceptor">
+  </beans:bean>
+  <!-- Interceptor 설정 -->
+  <mvc:interceptors>
+    <mvc:interceptor>
+        <mvc:mapping path="/*"/>         
         <mvc:exclude-mapping path="/resources/**"/>
         <beans:ref bean="AuthLoginInterceptor"/>
     </mvc:interceptor>
-</mvc:interceptors>
+  </mvc:interceptors>
 
 </beans>

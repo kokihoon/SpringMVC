@@ -116,6 +116,8 @@
 	  <version>3.0.1</version>
 	  <scope>provided</scope>
 	</dependency>
+<!-- aspectj --> <dependency> <groupId>org.aspectj</groupId> <artifactId>aspectjweaver</artifactId> <version>1.6.11</version> </dependency> <dependency> <groupId>org.aspectj</groupId> <artifactId>aspectjrt</artifactId> <version>1.6.8</version> </dependency>
+
   </dependencies>
 
   <build>

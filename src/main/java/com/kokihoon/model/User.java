@@ -1,4 +1,4 @@
-package main.java.model;
+package main.java.com.kokihoon.model;
 
 public class User {
 	private String userId;

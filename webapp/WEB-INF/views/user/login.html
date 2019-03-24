@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/default">
+
+<!-- 사용자 CSS 추가 -->
+<th:block layout:fragment="css">
+</th:block>
+
+<!-- 사용자 스크립트 추가 -->
+<th:block layout:fragment="script">
+</th:block>
+
+<div layout:fragment="content">
+<form action="/user/loginPost" method="post">
+	<input type="text" name="userId"/>
+	<input type="password" name="userPw"/>
+	<input type="submit">제출</input>
+	</form>
+</div>
+</html>

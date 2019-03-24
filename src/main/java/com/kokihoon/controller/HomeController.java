@@ -1,4 +1,4 @@
-package main.java.controller;
+package main.java.com.kokihoon.controller;
 
 import java.text.DateFormat;
 import java.util.Date;

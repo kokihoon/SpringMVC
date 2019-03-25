@@ -8,7 +8,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   <!--
     login에 대한 DB 작업을 정의한다. id와 pw가 일치하면 사용자 정보를 담고 있는 객체를 반환한다.
   -->
-  <select id="login" resultType="User">
+  <select id="login1" resultType="User">
     select * from userTable where userId = #{userId} and userPw = #{userPw}
   </select>     
 </mapper>

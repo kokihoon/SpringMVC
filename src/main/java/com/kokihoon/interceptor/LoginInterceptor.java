@@ -19,12 +19,12 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
 		HttpSession session = request.getSession();
 		ModelMap modelMap = modelAndView.getModelMap();
-		Object userVO = modelMap.get("userVO");
-		
-		if(userVO != null) {
+		Object user = modelMap.get("userId");
+		System.out.println(modelMap.get("userId")+"---------------------------");
+		if(user != null) {
 			logger.info("new login success");
-			session.setAttribute(LOGIN, userVO);
-			response.sendRedirect("/");
+			session.setAttribute(LOGIN, user);
+			response.sendRedirect("/user/main");
 		}
 	}
 	
@@ -32,12 +32,10 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception{
 		
 		HttpSession session = request.getSession();
-		
 		if(session.getAttribute(LOGIN) != null) {
 			logger.info("clear login data before");
 			session.removeAttribute(LOGIN);
 		}
 		return true;
-		
 	}
 }

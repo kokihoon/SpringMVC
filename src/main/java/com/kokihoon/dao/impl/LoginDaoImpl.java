@@ -18,6 +18,6 @@ public class LoginDaoImpl implements LoginDao{
 	
 	@Override
 	public User login(User user) throws Exception {
-		return session.selectOne(namespace + ".login", user);
+		return session.selectOne(namespace + ".login1", user);
 	}
 }

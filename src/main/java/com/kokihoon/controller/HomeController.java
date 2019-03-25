@@ -15,14 +15,20 @@ public class HomeController {
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		
-	Date date = new Date();
-	DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
+		Date date = new Date();
+		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
+			
+		String formattedDate = dateFormat.format(date);
+			
+		model.addAttribute("serverTime", formattedDate );
+			
+		return "/home";
+	}
+	
+	@RequestMapping(value="/", method =RequestMethod.GET)
+	public String index() {
 		
-	String formattedDate = dateFormat.format(date);
-		
-	model.addAttribute("serverTime", formattedDate );
-		
-	return "/home";
-}
+		return "/user/login";
+	}
 	
 }

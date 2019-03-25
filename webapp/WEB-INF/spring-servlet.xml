@@ -1,25 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<beans
-       xmlns="http://www.springframework.org/schema/beans" 
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-xmlns:context="http://www.springframework.org/schema/context" 
-xmlns:aop="http://www.springframework.org/schema/aop" 
-xsi:schemaLocation="
-http://www.springframework.org/schema/beans
-classpath:/org/springframework/beans/factory/xml/spring-beans-3.0.xsd 
-http://www.springframework.org/schema/context 
-classpath:/org/springframework/context/config/spring-context-3.0.xsd
-http://www.springframework.org/schema/aop 
-classpath:/org/springframework/aop/config/spring-aop-3.0.xsd
-">
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:aop="http://www.springframework.org/schema/aop" xmlns="http://www.springframework.org/schema/beans"
+    xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
+    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd"
+    xmlns:mvc="http://www.springframework.org/schema/mvc">
+
   <context:annotation-config />
   <context:component-scan base-package="main.java.com.kokihoon">
   	<context:include-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
   	<context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
    	<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/> 	
   </context:component-scan>
-  
+  <context:component-scan base-package="main.java.com.kokihoon.dao"></context:component-scan>
   <!-- thymeleaf View 설정 -->
   <bean id="templateResolver" class="org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver">
   <property name="prefix" value="/WEB-INF/views/" />
@@ -58,11 +54,19 @@ classpath:/org/springframework/aop/config/spring-aop-3.0.xsd
   
   <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
     <property name="dataSource" ref="dataSource"></property>
-    <property name="typeAliasesPackage" value="model"></property>
     <property name="mapperLocations" value="classpath:main.resources.mapper.sql.*.xml"></property>
   </bean>
-   <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
- <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"></constructor-arg>
- </bean>
-
+  
+  <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
+  <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"></constructor-arg>
+  </bean>
+ 
+  <bean id="loginInterceptor" class="main.java.com.kokihoon.interceptor.LoginInterceptor" />
+  
+  <mvc:interceptors>
+    <mvc:interceptor>
+      <mvc:mapping path="/user/loginPost"/>
+      <ref bean="loginInterceptor"/>
+    </mvc:interceptor>
+  </mvc:interceptors>
 </beans>

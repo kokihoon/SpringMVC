@@ -15,7 +15,8 @@
   	<context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
    	<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/> 	
   </context:component-scan>
-  <context:component-scan base-package="main.java.com.kokihoon.dao"></context:component-scan>
+   
+  
   <!-- thymeleaf View 설정 -->
   <bean id="templateResolver" class="org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver">
   <property name="prefix" value="/WEB-INF/views/" />
@@ -24,49 +25,22 @@
   <property name="characterEncoding" value="UTF-8" />
   <property name="cacheable" value="false" />
   </bean>
- 
+
   <!-- thymeleaf laytout을 쓰기위해 3rd Party 추가 -->
   <bean id="templateEngine" class="org.thymeleaf.spring4.SpringTemplateEngine">
-  <property name="templateResolver" ref="templateResolver" />
-  <property name="additionalDialects">
-  <set>
-  <bean class="nz.net.ultraq.thymeleaf.LayoutDialect" />
-  </set>
-  </property>
+    <property name="templateResolver" ref="templateResolver" />
+    <property name="additionalDialects">
+      <set>
+        <bean class="nz.net.ultraq.thymeleaf.LayoutDialect" />
+      </set>
+    </property>
   </bean>
  
   <!-- thymeleaf laytout ViewResolver 설정 -->
   <bean class="org.thymeleaf.spring4.view.ThymeleafViewResolver">
-  <property name="templateEngine" ref="templateEngine" />
-  <property name="characterEncoding" value="UTF-8" />
-  <property name="order" value="1" />
+    <property name="templateEngine" ref="templateEngine" />
+    <property name="characterEncoding" value="UTF-8" />
+    <property name="order" value="1" />
   </bean>
-  
-  <!-- DataSource 설정 -->
-  <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-  	<property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-  	<property name="url" value="jdbc:mysql://localhost:3306/testdb?useSSL=false"/>
-  	<property name="username" value="kokihoon" />
-  	<property name="password" value="123123"/>
-  </bean>
-  
-  
-  
-  <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-    <property name="dataSource" ref="dataSource"></property>
-    <property name="mapperLocations" value="classpath:main.resources.mapper.sql.*.xml"></property>
-  </bean>
-  
-  <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
-  <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"></constructor-arg>
-  </bean>
- 
-  <bean id="loginInterceptor" class="main.java.com.kokihoon.interceptor.LoginInterceptor" />
-  
-  <mvc:interceptors>
-    <mvc:interceptor>
-      <mvc:mapping path="/user/loginPost"/>
-      <ref bean="loginInterceptor"/>
-    </mvc:interceptor>
-  </mvc:interceptors>
+
 </beans>

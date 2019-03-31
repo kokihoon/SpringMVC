@@ -1,5 +1,7 @@
 package main.java.com.kokihoon.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,11 +27,11 @@ public class LoginController {
 	}
 	
 	@RequestMapping(value="/loginPost", method=RequestMethod.POST)
-	public void loginPOST(User user, HttpSession session, Model model) throws Exception {
-		User vo = service.login(user);
-		if(vo == null) {
-			return ;
-		}
+	public String loginPOST(User user, HttpSession session, Model model) throws Exception {
+		List<User> vo = service.login(user);
+
 		model.addAttribute("user", vo);
+		
+		return "/user/main";
 	}
 }

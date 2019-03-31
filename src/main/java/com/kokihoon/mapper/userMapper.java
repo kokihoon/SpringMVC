@@ -1,9 +1,10 @@
-package main.java.com.kokihoon.dao;
+package main.java.com.kokihoon.mapper;
 
 import java.util.List;
 
 import main.java.com.kokihoon.model.User;
 
-public interface LoginDao {
+public interface userMapper {
+
 	public List<User> login(User user) throws Exception;
 }

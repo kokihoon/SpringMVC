@@ -1,5 +1,7 @@
 package main.java.com.kokihoon.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +16,7 @@ public class LoginServiceImpl  implements LoginService{
 	LoginDao dao;
 	
 	@Override
-	public User login(User user) throws Exception {
+	public List<User> login(User user) throws Exception {
 		return dao.login(user);
 	}
 }

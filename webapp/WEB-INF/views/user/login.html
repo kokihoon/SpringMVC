@@ -3,28 +3,26 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorator="layout/default">
 
-<!-- »ç¿ëÀÚ CSS Ãß°¡ -->
-<th:block layout:fragment="css">
-</th:block>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <!-- ì‚¬ìš©ìž CSS ì¶”ê°€ -->
+  <th:block layout:fragment="css">
+  </th:block>
 
-<!-- »ç¿ëÀÚ ½ºÅ©¸³Æ® Ãß°¡ -->
-<th:block layout:fragment="script">
-</th:block>
+  <!-- ì‚¬ìš©ìž ìŠ¤í¬ë¦½íŠ¸ ì¶”ê°€ -->
+  <th:block layout:fragment="script">
+  </th:block>
 
-<div layout:fragment="content">
-<form action="/user/loginPost" method="post">
-	<p>
-		<label for="userId">ID : </label>	  
+  <div layout:fragment="content">
+    <form action="/user/loginPost" method="post">
+	  <p>
+	    <label for="userId">ID : </label>	  
 		<input id ="userId"type="text" name="userId"/>
-	</p>
-	<p>
+	  </p>
+	  <p>
 		<label for="userPw">PassWord : </label>
 		<input id="userPw" type="password" name="userPw"/>
-	</p>
-	<input type="submit"></input>
+	  </p>
+	  <input type="submit"></input>
 	</form>
-	<script>
-	console.log("123123123123")
-	</script>
-</div>
+  </div>
 </html>

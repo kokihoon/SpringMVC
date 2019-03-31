@@ -6,5 +6,5 @@ import main.java.com.kokihoon.model.User;
 
 public interface userMapper {
 
-	public List<User> login(User user) throws Exception;
+	public User login(User user) throws Exception;
 }

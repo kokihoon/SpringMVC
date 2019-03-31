@@ -27,11 +27,13 @@ public class LoginController {
 	}
 	
 	@RequestMapping(value="/loginPost", method=RequestMethod.POST)
-	public String loginPOST(User user, HttpSession session, Model model) throws Exception {
-		List<User> vo = service.login(user);
-
-		model.addAttribute("user", vo);
+	public void loginPOST(User user, HttpSession session, Model model) throws Exception {
+		User vo = service.login(user);
 		
-		return "/user/main";
+		if(null == vo) {
+			return ;
+		}
+		model.addAttribute("userId", vo);
+		
 	}
 }

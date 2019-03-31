@@ -16,7 +16,7 @@ public class LoginServiceImpl  implements LoginService{
 	LoginDao dao;
 	
 	@Override
-	public List<User> login(User user) throws Exception {
+	public User login(User user) throws Exception {
 		return dao.login(user);
 	}
 }

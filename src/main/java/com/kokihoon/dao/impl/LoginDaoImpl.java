@@ -19,8 +19,8 @@ public class LoginDaoImpl implements LoginDao{
 	private static String namespace = "main.java.com.kokihoon.mapper.userMapper";
 	
 	@Override
-	public List<User> login(User user) throws Exception {
+	public User login(User user) throws Exception {
 		
-		return session.selectList(namespace + ".login");
+		return session.selectOne(namespace + ".login", user);
 	}
 }

@@ -42,5 +42,14 @@
     <property name="characterEncoding" value="UTF-8" />
     <property name="order" value="1" />
   </bean>
+  
+  <bean id="loginInterceptor" class="main.java.com.kokihoon.interceptor.LoginInterceptor"/>
+  
+  <mvc:interceptors>
+    <mvc:interceptor>
+      <mvc:mapping path="/user/loginPost"/>
+      <ref bean ="loginInterceptor" />
+    </mvc:interceptor>
+  </mvc:interceptors>
 
 </beans>

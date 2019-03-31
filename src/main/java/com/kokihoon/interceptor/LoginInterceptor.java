@@ -20,11 +20,11 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 		HttpSession session = request.getSession();
 		ModelMap modelMap = modelAndView.getModelMap();
 		Object user = modelMap.get("userId");
-		System.out.println(modelMap.get("userId")+"---------------------------");
+		System.out.println(user+"---------------------------");
 		if(user != null) {
 			logger.info("new login success");
 			session.setAttribute(LOGIN, user);
-			response.sendRedirect("/user/main");
+			response.sendRedirect("/main");
 		}
 	}
 	

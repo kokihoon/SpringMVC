@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:aop="http://www.springframework.org/schema/aop"
+        xmlns="http://www.springframework.org/schema/beans"
+        xmlns:p="http://www.springframework.org/schema/p"
+        xmlns:context="http://www.springframework.org/schema/context"
+        xmlns:mvc="http://www.springframework.org/schema/mvc"
+        xmlns:beans="http://www.springframework.org/schema/beans"
+        xsi:schemaLocation="http://www.springframework.org/schema/mvc
+	  http://www.springframework.org/schema/mvc/spring-mvc.xsd    http://www.springframework.org/schema/aop
+	  http://www.springframework.org/schema/aop/spring-aop.xsd    http://www.springframework.org/schema/beans
+	  http://www.springframework.org/schema/beans/spring-beans.xsd    http://www.springframework.org/schema/context
+	  http://www.springframework.org/schema/context/spring-context.xsd">
+
+  <context:component-scan base-package="src.main.java.controller" />
+  
+  <mvc:annotation-driven/>
+  <!-- thymeleaf View 설정 -->
+  <beans:bean id="templateResolver" class="org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver">
+  <beans:property name="prefix" value="/WEB-INF/views/" />
+  <beans:property name="suffix" value=".html" />
+  <beans:property name="templateMode" value="HTML" />
+  <beans:property name="characterEncoding" value="UTF-8" />
+  <beans:property name="cacheable" value="false" />
+  </beans:bean>
+
+  <!-- thymeleaf laytout을 쓰기위해 3rd Party 추가 -->
+  <beans:bean id="templateEngine" class="org.thymeleaf.spring4.SpringTemplateEngine">
+  <beans:property name="templateResolver" ref="templateResolver" />
+  <beans:property name="additionalDialects">
+  <beans:set>
+  <beans:bean class="nz.net.ultraq.thymeleaf.LayoutDialect" />
+  </beans:set>
+  </beans:property>
+  </beans:bean>
+ 
+  <!-- thymeleaf laytout ViewResolver 설정 -->
+  <beans:bean class="org.thymeleaf.spring4.view.ThymeleafViewResolver">
+  <beans:property name="templateEngine" ref="templateEngine" />
+  <beans:property name="characterEncoding" value="UTF-8" />
+  <beans:property name="order" value="1" />
+  </beans:bean>
+  
+  <!-- DataSource 설정 -->
+  <beans:bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+  	<beans:property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+  	<beans:property name="url" value="jdbc:mysql://localhost:3306/testdb?useSSL=false"/>
+  	<beans:property name="username" value="kokihoon" />
+  	<beans:property name="password" value="123123"/>
+  </beans:bean>
+  
+  <bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
+    <property name="dataSource" ref="dataSource"/>
+    <property name="mapperLocations">
+      <list>
+        <value>classpath*:mapper/sql/*.xml</value>
+      </list>
+    </property>
+  </bean>
+<!--  <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+    <constructor-arg index="0" ref="sqlSession"/>
+  </bean>
+-->
+  <beans:bean id="LoginInterceptor" class="main.java.interceptor.LoginInterceptor">
+  </beans:bean>
+  
+  <mvc:interceptors>
+    <mvc:interceptor>
+      <mvc:mapping path="/loginPost"/>
+      <beans:ref bean = "LoginInterceptor"/>
+    </mvc:interceptor>
+  </mvc:interceptors>
+  
+  
+  <!-- 인터셉터 객체 생성 -->
+  <beans:bean id="AuthLoginInterceptor" class="main.java.interceptor.AuthLoginInterceptor">
+  </beans:bean>
+  <!-- Interceptor 설정 -->
+  <mvc:interceptors>
+    <mvc:interceptor>
+        <mvc:mapping path="/*"/>         
+        <mvc:exclude-mapping path="/resources/**"/>
+        <beans:ref bean="AuthLoginInterceptor"/>
+    </mvc:interceptor>
+  </mvc:interceptors>
+
+</beans>

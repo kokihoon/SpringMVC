@@ -51,5 +51,14 @@
       <ref bean ="loginInterceptor" />
     </mvc:interceptor>
   </mvc:interceptors>
+  
+  <bean id="authInterceptor" class="main.java.com.kokihoon.interceptor.AuthInterceptor"/>
+  
+  <mvc:interceptors>
+    <mvc:interceptor>
+      <mvc:mapping path="/main"/>
+      <ref bean="authInterceptor"/>
+    </mvc:interceptor>
+  </mvc:interceptors>
 
 </beans>

@@ -17,14 +17,17 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 	
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-		HttpSession session = request.getSession();
+		HttpSession httpSession = request.getSession();
 		ModelMap modelMap = modelAndView.getModelMap();
 		Object user = modelMap.get("userId");
 		System.out.println(user+"---------------------------");
+		
 		if(user != null) {
+			
 			logger.info("new login success");
-			session.setAttribute(LOGIN, user);
-			response.sendRedirect("/main");
+			httpSession.setAttribute(LOGIN, user);
+			Object destination = httpSession.getAttribute("destination");
+			response.sendRedirect(destination != null ? (String) destination : "/main");
 		}
 	}
 	

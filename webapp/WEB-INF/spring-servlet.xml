@@ -19,28 +19,28 @@
   <mvc:annotation-driven/>
   <!-- thymeleaf View 설정 -->
   <beans:bean id="templateResolver" class="org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver">
-  <beans:property name="prefix" value="/WEB-INF/views/" />
-  <beans:property name="suffix" value=".html" />
-  <beans:property name="templateMode" value="HTML" />
-  <beans:property name="characterEncoding" value="UTF-8" />
-  <beans:property name="cacheable" value="false" />
+    <beans:property name="prefix" value="/WEB-INF/views/" />
+    <beans:property name="suffix" value=".html" />
+    <beans:property name="templateMode" value="HTML" />
+    <beans:property name="characterEncoding" value="UTF-8" />
+    <beans:property name="cacheable" value="false" />
   </beans:bean>
 
   <!-- thymeleaf laytout을 쓰기위해 3rd Party 추가 -->
   <beans:bean id="templateEngine" class="org.thymeleaf.spring4.SpringTemplateEngine">
-  <beans:property name="templateResolver" ref="templateResolver" />
-  <beans:property name="additionalDialects">
-  <beans:set>
-  <beans:bean class="nz.net.ultraq.thymeleaf.LayoutDialect" />
-  </beans:set>
-  </beans:property>
+    <beans:property name="templateResolver" ref="templateResolver" />
+    <beans:property name="additionalDialects">
+      <beans:set>
+        <beans:bean class="nz.net.ultraq.thymeleaf.LayoutDialect" />
+      </beans:set>
+    </beans:property>
   </beans:bean>
  
   <!-- thymeleaf laytout ViewResolver 설정 -->
   <beans:bean class="org.thymeleaf.spring4.view.ThymeleafViewResolver">
-  <beans:property name="templateEngine" ref="templateEngine" />
-  <beans:property name="characterEncoding" value="UTF-8" />
-  <beans:property name="order" value="1" />
+    <beans:property name="templateEngine" ref="templateEngine" />
+    <beans:property name="characterEncoding" value="UTF-8" />
+    <beans:property name="order" value="1" />
   </beans:bean>
   
   <!-- DataSource 설정 -->

@@ -1,11 +1,18 @@
 package main.java.com.kokihoon.model;
 
+import java.util.Date;
+
 public class User {
 	private String userId;
 	private String userPw;
 	private String userName;
+	private String userEmail;
+	private Date userJoinDate;
+	private Date userLoginDate;
+	private String userSignature;
+	private String userImg;
 	private int usrPoint;
-	private boolean userCookie;
+
 	
 	
 	public String getUserId() {
@@ -32,13 +39,35 @@ public class User {
 	public void setUsrPoint(int usrPoint) {
 		this.usrPoint = usrPoint;
 	}
-	public boolean isUserCookie() {
-		return userCookie;
+	public String getUserEmail() {
+		return userEmail;
 	}
-	public void setUserCookie(boolean userCookie) {
-		this.userCookie = userCookie;
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
 	}
-	
-	
+	public Date getUserJoinDate() {
+		return userJoinDate;
+	}
+	public void setUserJoinDate(Date userJoinDate) {
+		this.userJoinDate = userJoinDate;
+	}
+	public Date getUserLoginDate() {
+		return userLoginDate;
+	}
+	public void setUserLoginDate(Date userLoginDate) {
+		this.userLoginDate = userLoginDate;
+	}
+	public String getUserSignature() {
+		return userSignature;
+	}
+	public void setUserSignature(String userSignature) {
+		this.userSignature = userSignature;
+	}
+	public String getUserImg() {
+		return userImg;
+	}
+	public void setUserImg(String userImg) {
+		this.userImg = userImg;
+	}
 	
 }

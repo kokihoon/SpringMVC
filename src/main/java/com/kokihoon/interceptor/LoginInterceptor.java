@@ -19,15 +19,12 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
 		HttpSession httpSession = request.getSession();
 		ModelMap modelMap = modelAndView.getModelMap();
-		Object user = modelMap.get("userId");
-		System.out.println(user+"---------------------------");
-		
+		Object user = modelMap.get("user");
+
 		if(user != null) {
-			
 			logger.info("new login success");
 			httpSession.setAttribute(LOGIN, user);
-			Object destination = httpSession.getAttribute("destination");
-			response.sendRedirect(destination != null ? (String) destination : "/main");
+			response.sendRedirect("/main");
 		}
 	}
 	

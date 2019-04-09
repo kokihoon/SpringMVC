@@ -1,5 +1,7 @@
 package main.java.com.kokihoon.service.impl;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,5 +19,17 @@ public class LoginServiceImpl  implements LoginService{
 	@Override
 	public User login(LoginDto loginDto) throws Exception {
 		return dao.login(loginDto);
+	}
+
+	@Override
+	public void keepLogin(String userId, String sessionId, Date sessionLimit) throws Exception {
+		dao.keepLogin(userId, sessionId, sessionLimit);
+		
+	}
+
+	@Override
+	public User checkLoginBefore(String value) throws Exception {
+		
+		return dao.checkUserWithSessionKey(value);
 	}
 }

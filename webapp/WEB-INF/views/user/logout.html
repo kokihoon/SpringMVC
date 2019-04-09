@@ -2,8 +2,9 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorator="layout/default">
-
+	
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
   <!-- 사용자 CSS 추가 -->
   <th:block layout:fragment="css">
   </th:block>
@@ -13,21 +14,9 @@
   </th:block>
 
   <div layout:fragment="content">
-    <form action="/user/loginPost" method="post">
-	  <p>
-	    <label for="userId">ID : </label>	  
-		<input id ="userId"type="text" name="userId"/>
-	  </p>
-	  <p>
-		<label for="userPw">PassWord : </label>
-		<input id="userPw" type="password" name="userPw"/>
-	  </p>
-	  <p>
-	  	<label>
-	  	  <input type="checkbox" name="useCookie">로그인유지
-	  	</label>
-	  </p>
-	  <input type="submit"></input>
-	</form>
+    <script>
+      alert("로그아웃 되었습니다.");
+	  self.location = "/user/login";
+    </script>
   </div>
 </html>

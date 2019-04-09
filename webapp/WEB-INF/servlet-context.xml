@@ -62,4 +62,22 @@
     </mvc:interceptor>
   </mvc:interceptors>
 
+  <bean id="rememberMeInterceptor" class="main.java.com.kokihoon.interceptor.RememberMeInterceptor"/>
+  
+  <mvc:interceptors>
+    <mvc:interceptor>
+      <mvc:mapping path="/**/"/>
+      <ref bean="rememberMeInterceptor"/>
+    </mvc:interceptor>
+  </mvc:interceptors>
+  
+  <bean id ="loginAfterInterceptor" class="main.java.com.kokihoon.interceptor.LoginAfterInterceptor"/>
+  
+  <mvc:interceptors>
+    <mvc:interceptor>
+      <mvc:mapping path="/user/login"/>
+      <mvc:mapping path="/user/register"/>
+      <ref bean="loginAfterInterceptor"/>
+    </mvc:interceptor>
+  </mvc:interceptors>
 </beans>

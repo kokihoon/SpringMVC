@@ -21,11 +21,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     )
   </insert>
   
+  <update id="keepLogin">
+    update tbl_user
+    set sessionKey = #{sessionId}
+      , sessionLimit = #{sessionLimit}
+    where userId = #{userId}
+  </update>
+  
+  <select id="checkUserWithSessionKey" resultType="loginTest">
+    select
+    	*
+    from tbl_user
+    where sessionKey = #{value}
+  </select>
    
   <!--
     login에 대한 DB 작업을 정의한다. id와 pw가 일치하면 사용자 정보를 담고 있는 객체를 반환한다.
   -->
   <select id="login" resultType="loginTest">
-    select * from tbl_user where userId = #{userId} and userPw =#{userPw}
+    select * from tbl_user where userId = #{userId}
   </select>     
 </mapper>

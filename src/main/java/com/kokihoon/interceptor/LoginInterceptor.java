@@ -1,5 +1,6 @@
 package main.java.com.kokihoon.interceptor;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -24,7 +25,22 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 		if(user != null) {
 			logger.info("new login success");
 			httpSession.setAttribute(LOGIN, user);
-			response.sendRedirect("/main");
+			//response.sendRedirect("/main");
+			System.out.println(request.getParameter("useCookie"));
+			if(request.getParameter("useCookie") != null) {
+				logger.info("remember me");
+				
+				//쿠키 생성
+				Cookie loginCookie = new Cookie("loginCookie", httpSession.getId());
+				loginCookie.setPath("/main");
+				loginCookie.setMaxAge(60*60*24*7);
+				
+				//전송
+				response.addCookie(loginCookie);
+			}
+			
+			Object destination = httpSession.getAttribute("destination");
+			response.sendRedirect(destination != null ? (String) destination : "/main");
 		}
 	}
 	

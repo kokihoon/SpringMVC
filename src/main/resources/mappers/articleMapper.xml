@@ -2,85 +2,34 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
-<mapper namespace="main.java.com.kokihoon.mapper.articleMapper">
-  <insert id="create">
-    INSERT INTO tbl_article (
-          articleNo
-        , title
-        , content
-        , writer
-        , regdate
-        , viewcnt
-     
-    ) VALUES (
-          #{articleNo}
-        , #{title}
-        , #{content}
-        , #{writer}
-        , #{regDate}
-        , #{viewCnt}
-    )
-  </insert>
-  
-  <select id="read" resultMap="ArticleResultMap">
-    SELECT
-          articleNo
-        , title
-        , content
-        , writer
-        , regdate
-        , viewcnt
-    FROM
-        tbl_article
-    WHERE
-        articleNo = #{articleNo}
-  </select>
-  
-  
-  <update id="update">
-    UPDATE tbl_article
-    SET
-           title = #{title}
-         , content = #{content}
-    WHERE
-           articleNo = #{articleNo} 
-  </update>
-  
-  <delete id="delete">
-    DELETE
-    
-    FROM
-           tbl_article
-    WHERE
-           articleNo = #{articleNo}
-  </delete>
-  
-  <select id="listAll" resultType="Aricle">
-    <![CDATA[
-        SELECT
-             articleNo
-           , title
-           , content
-           , writer
-           , regdate
-           , viewcnt
-        FROM
-             tbl_article
-        WHERE
-             articleNo > 0
-        ORDER BY
-             articleNo DESC
-           , regdate DESC             
-    ]]>
-  </select>
-  
-  <resultMap type="Article" id="AricleResultMap">
-    <id property="articleNo" column="articleNo"/>
-    <result property="title" column="title"/>
-    <result property="content" column="content"/>
-    <result property="writer" column="writer"/>
-    <result property="regDate" column="regdate"/>
-    <result property="viewCnt" column="viewcnt"/>
-  </resultMap>
+<mapper namespace="board">
+ 
+    <select id="listAll" resultType="main.java.com.kokihoon.model.param.BoardVO">
+		SELECT
+			  articleNo
+			, title
+			, content
+			, writer
+			, regdate
+			, viewcnt
+		FROM
+			  tbl_article
+		ORDER BY
+			  articleNo desc
+			, regdate desc 
+    </select>
+ 	
+ 	<insert id="insert">
+ 		INSERT INTO tbl_article (
+ 			  articleNo
+ 			, title
+ 			, content
+ 			, writer
+ 		) VALUES (
+ 		    (SELECT NVL(MAX(articleNo) + 1, 1) FROM tbl_article) 
+ 		  , #{title}
+ 		  , #{content}
+ 		  , #{writer}
+ 		)
+ 	</insert>
 </mapper>

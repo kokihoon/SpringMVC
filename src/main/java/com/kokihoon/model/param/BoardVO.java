@@ -2,17 +2,18 @@ package main.java.com.kokihoon.model.param;
 
 import java.util.Date;
 
-public class Article {
-	private Integer articleNo;
+public class BoardVO {
+	
+	private int articleNo;
 	private String title;
 	private String content;
 	private String writer;
-	private Date regDate;
-	private int viewCnt;
-	public Integer getArticleNo() {
+	private Date regdate;
+	private int viewcnt;
+	public int getArticleNo() {
 		return articleNo;
 	}
-	public void setArticleNo(Integer articleNo) {
+	public void setArticleNo(int articleNo) {
 		this.articleNo = articleNo;
 	}
 	public String getTitle() {
@@ -33,18 +34,19 @@ public class Article {
 	public void setWriter(String writer) {
 		this.writer = writer;
 	}
-	public Date getRegDate() {
-		return regDate;
+	public Date getRegdate() {
+		return regdate;
 	}
-	public void setRegDate(Date regDate) {
-		this.regDate = regDate;
+	public void setRegdate(Date regdate) {
+		this.regdate = regdate;
 	}
-	public int getViewCnt() {
-		return viewCnt;
+	public int getViewcnt() {
+		return viewcnt;
 	}
-	public void setViewCnt(int viewCnt) {
-		this.viewCnt = viewCnt;
+	public void setViewcnt(int viewcnt) {
+		this.viewcnt = viewcnt;
 	}
 	
 	
+
 }

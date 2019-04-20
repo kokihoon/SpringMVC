@@ -6,7 +6,6 @@
     
 <configuration>
   <typeAliases>
-   <typeAlias type="main.java.com.kokihoon.model.param.Article" alias="Article"/>
     <typeAlias type="main.java.com.kokihoon.model.User" alias="loginTest"/>
   </typeAliases>
 </configuration>   

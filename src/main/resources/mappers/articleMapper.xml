@@ -50,4 +50,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		WHERE
  			  articleNo = #{articleNo} 
  	</update>
+ 	
+ 	<delete id="delete">
+ 		DELETE
+ 		
+ 		FROM
+ 			  tbl_article
+ 		WHERE
+ 			  articleNo = #{articleNo}
+ 	</delete>
 </mapper>

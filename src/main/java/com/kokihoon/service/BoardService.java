@@ -13,4 +13,6 @@ public interface BoardService {
 	public BoardVO read(int articleNo) throws Exception;
 
 	public void update(BoardVO vo) throws Exception;
+
+	public void delete(int articleNo) throws Exception;
 }

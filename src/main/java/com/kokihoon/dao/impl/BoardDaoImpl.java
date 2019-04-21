@@ -36,5 +36,10 @@ public class BoardDaoImpl implements BoardDao{
 		session.update("board.update", vo);
 	}
 
+	@Override
+	public void delete(int articleNo) {
+		session.delete("board.delete", articleNo);
+	}
+
 
 }

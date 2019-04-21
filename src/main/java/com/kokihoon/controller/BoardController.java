@@ -76,4 +76,11 @@ public class BoardController {
     	return "redirect:/board/list";
     }
  	
+
+    @RequestMapping(value="/delete", method=RequestMethod.GET) 
+    public String delete(@RequestParam int articleNo) throws Exception {
+    	boardService.delete(articleNo);
+    	
+    	return "redirect:/board/list";
+    }
 }

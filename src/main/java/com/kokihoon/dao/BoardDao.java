@@ -14,4 +14,6 @@ public interface BoardDao {
 
 	public void update(BoardVO vo);
 
+	public void delete(int articleNo);
+
 }

@@ -26,5 +26,10 @@ public class BoardDaoImpl implements BoardDao{
 		return session.selectList("board.listAll");
 	}
 
+	@Override
+	public BoardVO read(int articleNo) throws Exception {
+		return session.selectOne("board.view", articleNo);
+	}
+
 
 }

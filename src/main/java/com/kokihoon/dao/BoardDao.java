@@ -9,5 +9,7 @@ public interface BoardDao {
 	public void create(BoardVO vo) throws Exception;
 
 	public List<BoardVO> listAll() throws Exception;
+	
+	public BoardVO read(int articleNo) throws Exception;
 
 }

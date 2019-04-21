@@ -30,4 +30,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		  , #{writer}
  		)
  	</insert>
+ 	
+ 	<select id="view" resultType="main.java.com.kokihoon.model.param.BoardVO">
+ 		SELECT 
+ 			  *
+ 		FROM
+ 			  tbl_article
+ 		WHERE
+ 			  articleNo = #{articleNo}
+ 	</select>
 </mapper>

@@ -51,7 +51,7 @@
                 <tbody>
               		<tr th:each="boardVO : ${list}">
 	                  <td th:text="${boardVO.articleNo}">BNO</td>
-	                  <td><a th:href="@{/samplehome/board/read(bno=${boardVO.articleNo})}" th:text="${boardVO.title}">TITLE</a></td>
+	                  <td><a th:href="@{/board/read(articleNo=${boardVO.articleNo})}" th:text="${boardVO.title}">TITLE</a></td>
 	                  <td th:text="${boardVO.writer}">WRITER</td>
 	                  <td th:text="${#dates.format(boardVO.regdate, 'yyyy-MM-dd HH:mm')}">REGDATE</td>
 	                  <td th:text="${boardVO.viewcnt}">VIEWCNT</td>

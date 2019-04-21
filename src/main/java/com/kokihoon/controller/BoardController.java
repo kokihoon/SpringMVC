@@ -8,7 +8,9 @@ import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import main.java.com.kokihoon.model.param.BoardVO;
@@ -31,6 +33,18 @@ public class BoardController {
         
         return mav;
         
+    }
+    
+    @RequestMapping(value="/write", method=RequestMethod.GET)
+    public String write() {
+    	return "board/write";
+    }
+    
+    @RequestMapping(value="/write", method=RequestMethod.POST)
+    public String write(@ModelAttribute BoardVO vo) throws Exception {
+    	boardServcie.create(vo);
+    	
+    	return "redirect:/board/list";
     }
  	
 }

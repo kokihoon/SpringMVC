@@ -25,16 +25,16 @@ public class BoardServiceImpl implements BoardService{
 		String content = vo.getContent();
 		String writer = vo.getWriter();
 		
-		title = title.replace("<", "&lt;");
-		title = title.replace("<", "&gt;");
-
-		writer = writer.replace("<", "&lt;");
-		writer = writer.replace("<", "&gt;");
-
-		title = title.replace("  ", "&nbsp;&nbsp;");
-		writer = writer.replace("  ", "&nbsp;&nbsp;");
-
-		content = content.replace("/n", "<br>");
+//		title = title.replace("<", "&lt;");
+//		title = title.replace("<", "&gt;");
+//
+//		writer = writer.replace("<", "&lt;");
+//		writer = writer.replace("<", "&gt;");
+//
+//		title = title.replace("  ", "&nbsp;&nbsp;");
+//		writer = writer.replace("  ", "&nbsp;&nbsp;");
+//
+//		content = content.replace("/n", "<br>");
 		vo.setTitle(title);
 		vo.setContent(content);
 		vo.setWriter(writer);

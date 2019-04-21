@@ -21,13 +21,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	
  	<insert id="insert">
  		INSERT INTO tbl_article (
- 			  articleNo
- 			, title
+ 			  title
  			, content
  			, writer
  		) VALUES (
- 		    (SELECT NVL(MAX(articleNo) + 1, 1) FROM tbl_article) 
- 		  , #{title}
+ 		    #{title}
  		  , #{content}
  		  , #{writer}
  		)

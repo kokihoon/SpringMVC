@@ -39,4 +39,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		WHERE
  			  articleNo = #{articleNo}
  	</select>
+ 	
+ 	<update id="update">
+ 		UPDATE 
+ 			  tbl_article
+ 		SET
+ 			  title = #{title}
+ 			, content = #{content}
+ 			, writer = #{writer}
+ 		WHERE
+ 			  articleNo = #{articleNo} 
+ 	</update>
 </mapper>

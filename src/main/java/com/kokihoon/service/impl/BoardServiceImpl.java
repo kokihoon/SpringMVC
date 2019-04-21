@@ -51,5 +51,10 @@ public class BoardServiceImpl implements BoardService{
 	public BoardVO read(int articleNo) throws Exception {
 		return boardDao.read(articleNo);
 	}
+
+	@Override
+	public void update(BoardVO vo) throws Exception {
+		boardDao.update(vo);
+	}
 	
 }

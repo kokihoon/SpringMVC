@@ -11,4 +11,6 @@ public interface BoardService {
 	public List<BoardVO> listAll() throws Exception;
 	
 	public BoardVO read(int articleNo) throws Exception;
+
+	public void update(BoardVO vo) throws Exception;
 }

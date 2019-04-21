@@ -31,5 +31,10 @@ public class BoardDaoImpl implements BoardDao{
 		return session.selectOne("board.view", articleNo);
 	}
 
+	@Override
+	public void update(BoardVO vo) {
+		session.update("board.update", vo);
+	}
+
 
 }

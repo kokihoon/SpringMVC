@@ -23,12 +23,12 @@ import main.java.com.kokihoon.service.BoardService;
 public class BoardController {
 	
 	@Autowired
-    BoardService boardServcie;
+    BoardService boardService;
     
     @RequestMapping(value="/list")
     public ModelAndView list() throws Exception {
         
-    	List<BoardVO> list = boardServcie.listAll();
+    	List<BoardVO> list = boardService.listAll();
         ModelAndView mav = new ModelAndView("/board/list");
         
         mav.addObject("list", list);
@@ -44,7 +44,7 @@ public class BoardController {
     
     @RequestMapping(value="/write", method=RequestMethod.POST)
     public String write(@ModelAttribute BoardVO vo) throws Exception {
-    	boardServcie.create(vo);
+    	boardService.create(vo);
     	
     	return "redirect:/board/list";
     }
@@ -52,11 +52,28 @@ public class BoardController {
     @RequestMapping(value="/read", method=RequestMethod.GET)
     public String read(@RequestParam("articleNo") int articleNo, Model model) throws Exception {
     	
-    	BoardVO boardVO = boardServcie.read(articleNo);
+    	BoardVO boardVO = boardService.read(articleNo);
     	System.out.println(boardVO);
 
     	model.addAttribute("boardVO", boardVO);
     	return "board/read";
+    }
+    
+    @RequestMapping(value="/update", method=RequestMethod.GET)
+    public String update(@RequestParam("articleNo") int articleNo, Model model) throws Exception{
+    	
+    	BoardVO boardVO = boardService.read(articleNo);
+    	
+    	model.addAttribute("boardVO", boardVO);
+    	
+    	return "board/update";
+    }
+    
+    @RequestMapping(value="/update", method=RequestMethod.POST)
+    public String update(BoardVO vo) throws Exception {
+    	boardService.update(vo);
+    	
+    	return "redirect:/board/list";
     }
  	
 }

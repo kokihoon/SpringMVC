@@ -12,4 +12,6 @@ public interface BoardDao {
 	
 	public BoardVO read(int articleNo) throws Exception;
 
+	public void update(BoardVO vo);
+
 }

@@ -9,10 +9,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   
   <insert id="register">
     insert into tbl_user (
-        userId,
-        userPw,
-        userName,
-        userEmail
+        user_id,
+        user_pw,
+        user_name,
+        user_email
     ) values (
         #{userId},
         #{userPw},
@@ -23,22 +23,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   
   <update id="keepLogin">
     update tbl_user
-    set sessionKey = #{sessionId}
-      , sessionLimit = #{sessionLimit}
-    where userId = #{userId}
+    set session_key = #{sessionId}
+      , session_limit = #{sessionLimit}
+    where user_id = #{userId}
   </update>
   
   <select id="checkUserWithSessionKey" resultType="loginTest">
     select
     	*
     from tbl_user
-    where sessionKey = #{value}
+    where session_key = #{value}
   </select>
    
   <!--
     login에 대한 DB 작업을 정의한다. id와 pw가 일치하면 사용자 정보를 담고 있는 객체를 반환한다.
   -->
   <select id="login" resultType="loginTest">
-    select * from tbl_user where userId = #{userId}
+    select user_id as userId from tbl_user where user_id = #{userId}
   </select>     
 </mapper>

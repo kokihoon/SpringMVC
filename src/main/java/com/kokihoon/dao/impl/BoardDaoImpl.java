@@ -28,6 +28,7 @@ public class BoardDaoImpl implements BoardDao{
 
 	@Override
 	public BoardVO read(int articleNo) throws Exception {
+		System.out.println(articleNo+"------------------");
 		return session.selectOne("board.view", articleNo);
 	}
 

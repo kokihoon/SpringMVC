@@ -6,21 +6,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  
     <select id="listAll" resultType="main.java.com.kokihoon.model.param.BoardVO">
 		SELECT
-			  articleNo
+			  article_no as articleNo
 			, title
 			, content
 			, writer
 			, regdate
 			, viewcnt
 		FROM
-			  tbl_article
+			  tbl_board
 		ORDER BY
 			  articleNo desc
 			, regdate desc 
     </select>
  	
  	<insert id="insert">
- 		INSERT INTO tbl_article (
+ 		INSERT INTO tbl_board (
  			  title
  			, content
  			, writer
@@ -33,30 +33,35 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	
  	<select id="view" resultType="main.java.com.kokihoon.model.param.BoardVO">
  		SELECT 
- 			  *
+ 			    article_no as articleNo
+ 			  , title
+ 			  , content
+ 			  , writer
+ 			  , regdate
+ 			  , viewcnt
  		FROM
- 			  tbl_article
+ 			  tbl_board
  		WHERE
- 			  articleNo = #{articleNo}
+ 			  article_no = #{articleNo}
  	</select>
  	
  	<update id="update">
  		UPDATE 
- 			  tbl_article
+ 			  tbl_board
  		SET
  			  title = #{title}
  			, content = #{content}
  			, writer = #{writer}
  		WHERE
- 			  articleNo = #{articleNo} 
+ 			  article_no = #{articleNo} 
  	</update>
  	
  	<delete id="delete">
  		DELETE
  		
  		FROM
- 			  tbl_article
+ 			  tbl_board
  		WHERE
- 			  articleNo = #{articleNo}
+ 			  article_no = #{articleNo}
  	</delete>
 </mapper>

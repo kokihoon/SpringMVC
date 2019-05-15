@@ -71,7 +71,7 @@
 	            <!-- form start -->
 	            <form role="form" method="post">
 	              <div class="box-body" th:object="${boardVO}">
-	              	<input th:field="*{articleNo}" type="hidden"  >
+	              	<input th:field="*{articleNo}" type="hidden" value="*{articleNo}" >
 	                <div class="form-group">
 	                  <label for="exampleInputBoardTitle">Title</label>
 	                  <input th:value="*{title}" type="text" class="form-control" id="exampleInputBoardTitle"  readonly="readonly">

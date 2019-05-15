@@ -51,9 +51,10 @@ public class BoardController {
     
     @RequestMapping(value="/read", method=RequestMethod.GET)
     public String read(@RequestParam("articleNo") int articleNo, Model model) throws Exception {
-    	
+    	System.out.println(articleNo);
     	BoardVO boardVO = boardService.read(articleNo);
-    	System.out.println(boardVO);
+    	System.out.println(boardVO.getArticleNo());
+    	System.out.println(boardVO.getTitle());
 
     	model.addAttribute("boardVO", boardVO);
     	return "board/read";
@@ -61,9 +62,9 @@ public class BoardController {
     
     @RequestMapping(value="/update", method=RequestMethod.GET)
     public String update(@RequestParam("articleNo") int articleNo, Model model) throws Exception{
-    	
+    	System.out.println(articleNo);
     	BoardVO boardVO = boardService.read(articleNo);
-    	
+    	System.out.println(boardVO);
     	model.addAttribute("boardVO", boardVO);
     	
     	return "board/update";

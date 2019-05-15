@@ -37,7 +37,7 @@ public class LoginController {
 	@RequestMapping(value="/loginPost", method=RequestMethod.POST)
 	public void loginPOST(LoginDto loginDto, HttpSession session, Model model) throws Exception {
 		User user = service.login(loginDto);
-		System.out.println();
+		
 		if(user == null) {
 			return ;
 		}

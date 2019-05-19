@@ -41,6 +41,10 @@ public class LoginController {
 		if(user == null) {
 			return ;
 		}
+		System.out.println(user.getUserId()+"123213213213");
+		System.out.println(user.getUserName()+"123123123123");
+		session.setAttribute("userId", user.getUserId());
+		session.setAttribute("userName", user.getUserName());
 		
 		model.addAttribute("user", user);
 		
@@ -49,7 +53,7 @@ public class LoginController {
 			int amount = 60*60*24*7; // 7¿œ
 			Date sessionLimit = new Date(System.currentTimeMillis() + (1000*amount));
 			service.keepLogin(user.getUserId(), session.getId(), sessionLimit);
-		}		
+		}
 	}
 	
 	@RequestMapping(value="/logout", method= RequestMethod.GET)

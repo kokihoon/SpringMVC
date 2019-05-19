@@ -1,8 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
+  <!-- 사용자 CSS 추가 -->
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <header class="main-header" th:fragment="headerFragment">
-  header
+  
+  <div th:if="${session.userId}">
+  	[[${session.userId}]]님 <a href="/user/logout">로그아웃</a>
+  	
+  </div>
+  <div th:unless="${session.userId}">
+  	<div>게스트님</div>
+  </div>
   </header>
 
 </html>

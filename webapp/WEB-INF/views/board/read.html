@@ -88,10 +88,12 @@
 	              <!-- /.box-body -->
 	
 	              <div class="box-footer">
-	                <button type="submit" class="btn btn-warning">Modify</button>
-	                <button type="submit" class="btn btn-danger">Remove</button>
-	                <button type="submit" class="btn btn-primary">ListAll</button>
-	              </div>
+	              	<div th:if="${session.userId == boardVO.writer}">
+	                  <button type="submit" class="btn btn-warning">Modify</button>
+	                  <button type="submit" class="btn btn-danger">Remove</button>
+		            </div>
+		            <button type="submit" class="btn btn-primary">ListAll</button>
+		          </div>
 	            </form>
 	          </div>
 	          <!-- /.box -->

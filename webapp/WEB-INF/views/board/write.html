@@ -23,11 +23,6 @@
 	  		formObj.submit();
 	  	});
 	  	
-	  	$(".btn-warning").on("click", function(){
-	  		formObj.attr("action", "/board/listAll");
-	  		formObj.attr("method", "get");
-	  		formObj.submit();
-	  	});
 	      
 	      
 	    });
@@ -75,7 +70,7 @@
                 </div>
                 <div class="form-group">
                   <label for="exampleInputBoardWriter">Writer</label>
-                  <input type="text" name="writer" class="form-control" id="exampleInputBoardWriter">
+                  <input type="text" name="writer" class="form-control" th:value="${session.userId}" id="exampleInputBoardWriter" readonly>
                 </div>
               </div>
               <!-- /.box-body -->
@@ -83,7 +78,7 @@
 
               <div class="box-footer">
               	<button type="submit" class="btn btn-primary">Submit</button>
-              	<button type="submit" class="btn btn-warning">Cancle</button>
+              	<button  class="btn btn-warning"><a href="javascript:history.back()">Cancle</a></button>
               </div>
             </form>
           </div>

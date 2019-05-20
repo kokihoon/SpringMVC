@@ -21,15 +21,7 @@
 				formObj.attr("action", "/board/update");
 				formObj.attr("method", "post");
 				formObj.submit();
-			});
-			
-			$(".btn-warning").on("click", function(){
-				formObj.attr("action", "/board/list");
-				formObj.attr("method", "get");
-				formObj.submit();
-			});
-		    
-		    
+			});	    		    
 		  });
 		
 		/*]]>*/
@@ -77,14 +69,14 @@
 	                </div>
 	                <div class="form-group">
 	                  <label for="exampleInputBoardWriter">Writer</label>
-	                  <input th:field="*{writer}" type="text"  class="form-control" id="exampleInputBoardWriter">
+	                  <input th:field="*{writer}" type="text"  class="form-control" id="exampleInputBoardWriter" readonly>
 	                </div>
 	              </div>
 	              <!-- /.box-body -->
 	
 	              <div class="box-footer">
 	              	<button type="submit" class="btn btn-primary">Submit</button>
-	              	<button type="submit" class="btn btn-warning">Cancle</button>
+	              	<button class="btn btn-warning"><a href="javascript:history.back()">Cancle</a></button>
 	              </div>
 	            </form>
 	          </div>

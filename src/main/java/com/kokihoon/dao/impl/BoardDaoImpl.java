@@ -1,6 +1,8 @@
 package main.java.com.kokihoon.dao.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +24,13 @@ public class BoardDaoImpl implements BoardDao{
 	}
 
 	@Override
-	public List<BoardVO> listAll() throws Exception {
-		return session.selectList("board.listAll");
+	public List<BoardVO> listAll(String searchOption, String keyword) throws Exception {
+		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("searchOption", searchOption);
+		map.put("keyword", keyword);
+		
+		return session.selectList("board.listAll", map);
 	}
 
 	@Override
@@ -40,6 +47,15 @@ public class BoardDaoImpl implements BoardDao{
 	@Override
 	public void delete(int articleNo) {
 		session.delete("board.delete", articleNo);
+	}
+
+	@Override
+	public int countArticle(String searchOption, String keyword) throws Exception{
+		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("searchOption", searchOption);
+		map.put("keyword", keyword);
+		return session.selectOne("board.countArticle", map);
 	}
 
 

@@ -17,9 +17,9 @@
   <!-- DataSource 설정 -->
   <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
   	<property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-  	<property name="url" value="jdbc:mysql://localhost:3307/testdb?allowPublicKeyRetrieval=true"/>
-  	<property name="username" value="kokihoon" />
-  	<property name="password" value="123123"/>
+  	<property name="url" value="jdbc:mysql://localhost:3306/test_db?allowPublicKeyRetrieval=true"/>
+  	<property name="username" value="root" />
+  	<property name="password" value="password"/>
   </bean>
   
   

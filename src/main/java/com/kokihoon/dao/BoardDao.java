@@ -8,12 +8,14 @@ public interface BoardDao {
 	
 	public void create(BoardVO vo) throws Exception;
 
-	public List<BoardVO> listAll() throws Exception;
+	public List<BoardVO> listAll(String searchOption, String keyword) throws Exception;
 	
 	public BoardVO read(int articleNo) throws Exception;
 
 	public void update(BoardVO vo);
 
 	public void delete(int articleNo);
+
+	public int countArticle(String searchOption, String keyword) throws Exception;
 
 }

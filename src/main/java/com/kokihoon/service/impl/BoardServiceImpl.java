@@ -24,17 +24,6 @@ public class BoardServiceImpl implements BoardService{
 		String title = vo.getTitle();
 		String content = vo.getContent();
 		String writer = vo.getWriter();
-		
-//		title = title.replace("<", "&lt;");
-//		title = title.replace("<", "&gt;");
-//
-//		writer = writer.replace("<", "&lt;");
-//		writer = writer.replace("<", "&gt;");
-//
-//		title = title.replace("  ", "&nbsp;&nbsp;");
-//		writer = writer.replace("  ", "&nbsp;&nbsp;");
-//
-//		content = content.replace("/n", "<br>");
 		vo.setTitle(title);
 		vo.setContent(content);
 		vo.setWriter(writer);
@@ -42,10 +31,10 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public List<BoardVO> listAll() throws Exception {
-		
-		return boardDao.listAll();
+	public List<BoardVO> listAll(String searchOption, String keyword) throws Exception {		
+		return boardDao.listAll(searchOption, keyword);
 	}
+	
 
 	@Override
 	public BoardVO read(int articleNo) throws Exception {
@@ -60,6 +49,11 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public void delete(int articleNo) throws Exception {
 		boardDao.delete(articleNo);
+	}
+
+	@Override
+	public int countArticle(String searchOption, String keyword) throws Exception {
+		return boardDao.countArticle(searchOption, keyword);
 	}
 	
 }

@@ -4,6 +4,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="board">
  
+ 	<select id="countArticle" resultType="int">
+ 		SELECT
+ 			COUNT(*)
+ 		FROM
+ 			tbl_board
+ 		<include refid="search"></include>
+ 	</select>
+ 	
     <select id="listAll" resultType="main.java.com.kokihoon.model.param.BoardVO">
 		SELECT
 			  article_no as articleNo
@@ -14,9 +22,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			, viewcnt
 		FROM
 			  tbl_board
+ 		<choose>
+ 			<when test="searchOption == 'all'">
+ 				WHERE
+ 					 writer like '%' || #{keyword} || '%'
+ 				AND
+ 					content like '%' || #{keyword} || '%'
+ 				AND
+ 					title like '%' || #{keyword} || '%'
+ 			</when>
+ 			<otherwise>
+ 				WHERE
+ 					${searchOption} like '%' || #{keyword} || '%'
+ 			</otherwise>
+		
+ 		</choose>
+				AND
+			  		del_chk = 'N' 	
 		ORDER BY
 			  articleNo desc
-			, regdate desc 
+			, regdate desc
+
     </select>
  	
  	<insert id="insert">
@@ -56,12 +82,32 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  			  article_no = #{articleNo} 
  	</update>
  	
- 	<delete id="delete">
- 		DELETE
- 		
- 		FROM
- 			  tbl_board
+ 	<update id="delete">
+ 		UPDATE
+ 			  tbl_board 		
+ 		SET
+ 			del_chk = 'Y'
  		WHERE
  			  article_no = #{articleNo}
- 	</delete>
+ 	</update>
+ 	
+ 	<sql id="search">
+ 		<choose>
+ 			<when test="searchOption == 'all'">
+ 				WHERE
+ 					 writer like '%' || #{keyword} || '%'
+ 				OR
+ 					content like '%' || #{keyword} || '%'
+ 				OR
+ 					title like '%' || #{keyword} || '%'
+ 			</when>
+ 			<otherwise>
+ 				WHERE
+ 					${searchOption} like '%' || #{keyword} || '%'
+ 			</otherwise>
+		
+ 		</choose>
+				AND
+			  		del_chk = 'N' 	
+ 	</sql>
 </mapper>

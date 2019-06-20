@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import main.java.com.kokihoon.common.Criteria;
 import main.java.com.kokihoon.dao.BoardDao;
 import main.java.com.kokihoon.model.param.BoardVO;
 import main.java.com.kokihoon.service.BoardService;
@@ -31,8 +32,8 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public List<BoardVO> listAll(String searchOption, String keyword) throws Exception {		
-		return boardDao.listAll(searchOption, keyword);
+	public List<BoardVO> listAll(Criteria cri) throws Exception {		
+		return boardDao.listAll(cri);
 	}
 	
 
@@ -52,8 +53,8 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public int countArticle(String searchOption, String keyword) throws Exception {
-		return boardDao.countArticle(searchOption, keyword);
+	public int countArticle(Criteria cri) throws Exception {
+		return boardDao.countArticle(cri);
 	}
 	
 }

@@ -6,13 +6,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  
  	<select id="countArticle" resultType="int">
  		SELECT
- 			COUNT(*)
+ 			COUNT(article_no)
  		FROM
  			tbl_board
- 		<include refid="search"></include>
+ 			
+ 		<!--  <include refid="search"></include>-->
  	</select>
  	
-    <select id="listAll" resultType="main.java.com.kokihoon.model.param.BoardVO">
+<!--     <select id="listAll" resultType="main.java.com.kokihoon.model.param.BoardVO">
 		SELECT
 			  article_no as articleNo
 			, title
@@ -43,6 +44,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			  articleNo desc
 			, regdate desc
 
+    </select> -->
+    
+    <select id="listAll" resultType="main.java.com.kokihoon.model.param.BoardVO">
+	  	SELECT
+	  		  article_no as articleNo
+	  		, title
+	  		, content
+	  		, writer
+	  		, regdate
+	  		, viewcnt
+	  	FROM
+	  		tbl_board
+	  	WHERE
+	  		article_no > 0
+	  	ORDER BY
+	  		article_no desc, regdate desc
+	  	LIMIT #{pageStart}, #{perPageNum}
     </select>
  	
  	<insert id="insert">

@@ -17,16 +17,16 @@
 	  <div class="content-wrapper">
 	    <!-- Main content -->
 	    
-	    <form name="form1" method="post" action="/board/list">
+<!-- 	    <form name="form1" method="post" action="/board/list">
 	    	<select name="searchOption">
 	    		<option value="all" th:if="${map.searchOption=='all'? 'selected' : ''}">전체</option>
 	    		<option value="writer" th:if="${map.searchOption=='writer'? 'selected' : ''}" >이름</option>
 	    		<option value="content" th:if="${map.searchOption=='content'? 'selected' : ''}" >내용</option>
 	    		<option value="title" th:if="${map.searchOption=='title'? 'selected' : ''}" >제목</option>
 	    	</select>
-	    	<input name="keyword" value="${map.keyword}">
+	    	<input name="keyword" value="">
 	    	<input type="submit" value="검색">
-	    </form>
+	    </form> -->
 	    <section class="content">
 	      <div class="row">
 	        <div class="col-xs-12">
@@ -48,7 +48,7 @@
 	                </tr>
 	                </thead>
 	                <tbody>
-	              		<tr th:each="boardVO : ${map.list}">
+	              		<tr th:each="boardVO : ${list}">
 		                  <td th:text="${boardVO.articleNo}">BNO</td>
 		                  <td><a th:href="@{/board/read(articleNo=${boardVO.articleNo})}" th:text="${boardVO.title}">TITLE</a></td>
 		                  <td th:text="${boardVO.writer}">WRITER</td>
@@ -60,6 +60,7 @@
 	              </table>
 	              <button><a href="/board/write">등록</a></button>
 	            </div>
+	            <div th:replace="fragments/paging :: pagingFragment"></div>
 	            <!-- /.box-body -->
 	          </div>
 	          <!-- /.box -->

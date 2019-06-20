@@ -33,31 +33,24 @@ public class BoardController {
     BoardService boardService;
     
     @RequestMapping(value="/list")
-    public ModelAndView list(@RequestParam(defaultValue="title") String searchOption,
-    						@RequestParam(defaultValue="") String keyword) throws Exception {
+    public String list(Criteria cri, Model model,
+    		@RequestParam(defaultValue="title") String searchOption,
+    		@RequestParam(defaultValue="") String keyword) throws Exception {
         
-    	System.out.println(keyword);
-    	System.out.println(searchOption);
-    	List<BoardVO> list = boardService.listAll(searchOption, keyword);
-        
-    	int count = boardService.countArticle(searchOption, keyword);
+    	logger.info(cri.toString());
     	
-    	ModelAndView mav = new ModelAndView("/board/list");
-//        PageMaker pageMaker = new PageMaker();
-//    
-//        pageMaker.setTotalCount(100);
+    	List<BoardVO> list = boardService.listAll(cri);
+    	System.out.println(list);
+        PageMaker pageMaker = new PageMaker(cri);
+        pageMaker.setCri(cri);
         
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("list", list);
-        map.put("count", count);
-        map.put("searchOption", searchOption);
-        map.put("keyword", keyword);
-        mav.addObject("map", map);
-        System.out.println(list+"----------------------------");
-        System.out.println(count+"=======================================");
-//        mav.addObject("pageMaker", pageMaker);
+        int totalCount = boardService.countArticle(cri);
+        pageMaker.setTotalCount(totalCount);
         
-        return mav;
+        model.addAttribute("list", list);
+        model.addAttribute("pageMaker", pageMaker);
+        
+        return "board/list";
         
     }
     

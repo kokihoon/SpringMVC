@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import main.java.com.kokihoon.common.Criteria;
 import main.java.com.kokihoon.dao.BoardDao;
 import main.java.com.kokihoon.model.param.BoardVO;
 
@@ -24,13 +25,8 @@ public class BoardDaoImpl implements BoardDao{
 	}
 
 	@Override
-	public List<BoardVO> listAll(String searchOption, String keyword) throws Exception {
-		
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("searchOption", searchOption);
-		map.put("keyword", keyword);
-		
-		return session.selectList("board.listAll", map);
+	public List<BoardVO> listAll(Criteria cri) throws Exception {	
+		return session.selectList("board.listAll", cri);
 	}
 
 	@Override
@@ -50,13 +46,7 @@ public class BoardDaoImpl implements BoardDao{
 	}
 
 	@Override
-	public int countArticle(String searchOption, String keyword) throws Exception{
-		
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("searchOption", searchOption);
-		map.put("keyword", keyword);
-		return session.selectOne("board.countArticle", map);
+	public int countArticle(Criteria cri) throws Exception{
+		return session.selectOne("board.countArticle", cri);
 	}
-
-
 }

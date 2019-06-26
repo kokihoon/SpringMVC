@@ -6,13 +6,13 @@
   <div class="box-footer clearfix"  th:fragment="pagingFragment">
     <ul class="pagination pagination-sm no-margin pull-right">    
       <li th:if="${pageMaker.prev} == true">
- 	      <a th:href="@{/board/list(page=${pageMaker.startPage}-1,perPageNum=${pageMaker.cri.perPageNum})}">&laquo;</a>
+ 	    <a th:href="@{/board/list(page=${pageMaker.startPage}-1,perPageNum=${pageMaker.cri.perPageNum})}">&laquo;</a>
       </li>   
       <li th:each="idx,iterStat : ${#numbers.sequence(pageMaker.startPage,pageMaker.endPage)}"  th:classappend="${pageMaker.cri.page} == ${idx} ? active : null">
         <a th:href="@{/board/list(page=${idx},perPageNum=${pageMaker.cri.perPageNum})}" th:text="${idx}"></a>
       </li>
       <li th:if="${pageMaker.next} == true and ${pageMaker.endPage > 0}">
-     <a th:href="@{/board/list(page=${pageMaker.endPage}+1,perPageNum=${pageMaker.cri.perPageNum})}">&raquo;</a>
+        <a th:href="@{/board/list(page=${pageMaker.endPage}+1,perPageNum=${pageMaker.cri.perPageNum})}">&raquo;</a>
       </li>
     </ul>
   </div>

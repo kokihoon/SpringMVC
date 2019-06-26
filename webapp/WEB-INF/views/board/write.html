@@ -10,25 +10,25 @@
 
   <!-- 사용자 스크립트 추가 -->
   <th:block layout:fragment="script">
-	  <script th:inline="javascript">
-	  /*<![CDATA[*/
-	  $(function () {
+    <script type="text/javascript" th:inline="javascript">
 
-	  	var formObj = $("form[role='form']");
-	  	console.log(formObj);
-	  	
-	  	$(".btn-primary").on("click", function(){
-	  		formObj.attr("action", "/board/write");
-	  		formObj.attr("method", "post");
-	  		formObj.submit();
-	  	});
-	  	
-	      
-	      
-	    });
-
-	  /*]]>*/
-	    </script>
+	  function goBack() {
+		
+		var frm = $("<form>");
+		frm.attr({
+		  id:"search",
+		  action:"/board/list",
+		  method:"post"
+		});
+	
+		frm.append($("<input>").attr({type : "hidden", name : "optionSearch", value : [[${optionSearch}]]}))
+		   .append($("<input>").attr({type : "hidden", name : "keyword", value : [[${keyword}]]}));
+			 
+		$(document.body).append(frm);
+		frm.submit();
+		
+	  }
+    </script>
   </th:block>
 
   <div layout:fragment="content">
@@ -78,7 +78,7 @@
 
               <div class="box-footer">
               	<button type="submit" class="btn btn-primary">Submit</button>
-              	<button  class="btn btn-warning"><a href="javascript:history.back()">Cancle</a></button>
+              	<button  class="btn btn-warning"><a th:href="|javascript:goBack();|">Cancel</a></button>
               </div>
             </form>
           </div>

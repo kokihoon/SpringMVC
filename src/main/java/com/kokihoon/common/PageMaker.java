@@ -42,6 +42,9 @@ public class PageMaker {
 		if(this.endPage > tempEndPage) {
 			this.endPage = tempEndPage;
 		}
+		if(this.totalCount == 0) {
+			this.endPage = 1;
+		}
 		
 		this.prev = (startPage != 1); // startPage 1이 아니면 false
 		this.next = (endPage * perPageNum < totalCount); //아직 더 보여질 페이지가 있으면 true 

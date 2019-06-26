@@ -33,29 +33,37 @@ public class BoardController {
     BoardService boardService;
     
     @RequestMapping(value="/list")
-    public String list(Criteria cri, Model model,
-    		@RequestParam(defaultValue="title") String searchOption,
-    		@RequestParam(defaultValue="") String keyword) throws Exception {
+    public String list(Criteria cri, Model model) throws Exception {
         
     	logger.info(cri.toString());
-    	
     	List<BoardVO> list = boardService.listAll(cri);
-    	System.out.println(list);
+
         PageMaker pageMaker = new PageMaker(cri);
         pageMaker.setCri(cri);
         
         int totalCount = boardService.countArticle(cri);
+        
+        System.out.println(totalCount+"1111111111111111111111111");
         pageMaker.setTotalCount(totalCount);
         
         model.addAttribute("list", list);
         model.addAttribute("pageMaker", pageMaker);
+        model.addAttribute("keyword", cri.getKeyword());
+        model.addAttribute("optionSearch", cri.getOptionSearch());
         
         return "board/list";
-        
     }
     
-    @RequestMapping(value="/write", method=RequestMethod.GET)
-    public String write() {
+    @RequestMapping(value="/write")
+    public String write(Criteria cri, Model model) {
+    	
+        PageMaker pageMaker = new PageMaker(cri);
+        
+        pageMaker.setCri(cri);
+        model.addAttribute("keyword", cri.getKeyword());
+    	model.addAttribute("optionSearch", cri.getOptionSearch());
+        model.addAttribute("pageMaker", pageMaker);
+        
     	return "board/write";
     }
     
@@ -66,22 +74,31 @@ public class BoardController {
     	return "redirect:/board/list";
     }
     
-    @RequestMapping(value="/read", method=RequestMethod.GET)
-    public String read(@RequestParam("articleNo") int articleNo, Model model) throws Exception {
-    	System.out.println(articleNo);
+    @RequestMapping(value="/read")
+    public String read(@RequestParam("articleNo") int articleNo, Criteria cri, Model model) throws Exception {
     	BoardVO boardVO = boardService.read(articleNo);
-    	System.out.println(boardVO.getArticleNo());
-    	System.out.println(boardVO.getTitle());
-
+    	
+        PageMaker pageMaker = new PageMaker(cri);
+        
+        pageMaker.setCri(cri);
+    	model.addAttribute("keyword", cri.getKeyword());
+    	model.addAttribute("optionSearch", cri.getOptionSearch());
+        model.addAttribute("pageMaker", pageMaker);
     	model.addAttribute("boardVO", boardVO);
+    	
     	return "board/read";
     }
     
     @RequestMapping(value="/update", method=RequestMethod.GET)
-    public String update(@RequestParam("articleNo") int articleNo, Model model) throws Exception{
-    	System.out.println(articleNo);
+    public String update(@RequestParam("articleNo") int articleNo, Criteria cri, Model model) throws Exception{
+    	
     	BoardVO boardVO = boardService.read(articleNo);
-    	System.out.println(boardVO);
+    	PageMaker pageMaker = new PageMaker(cri);
+        
+        pageMaker.setCri(cri);
+    	model.addAttribute("keyword", cri.getKeyword());
+    	model.addAttribute("optionSearch", cri.getOptionSearch());
+        model.addAttribute("pageMaker", pageMaker);
     	model.addAttribute("boardVO", boardVO);
     	
     	return "board/update";

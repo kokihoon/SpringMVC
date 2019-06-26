@@ -9,7 +9,9 @@ public class BoardVO {
 	private String content;
 	private String writer;
 	private Date regdate;
+	private Date update;
 	private int viewcnt;
+	
 	public int getArticleNo() {
 		return articleNo;
 	}
@@ -46,7 +48,12 @@ public class BoardVO {
 	public void setViewcnt(int viewcnt) {
 		this.viewcnt = viewcnt;
 	}
-	
+	public Date getUpdate() {
+		return update;
+	}
+	public void setUpdate(Date update) {
+		this.update = update;
+	}
 	
 
 }

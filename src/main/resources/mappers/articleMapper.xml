@@ -9,42 +9,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  			COUNT(article_no)
  		FROM
  			tbl_board
- 			
- 		<!--  <include refid="search"></include>-->
+ 		    <include refid="search"></include>
  	</select>
- 	
-<!--     <select id="listAll" resultType="main.java.com.kokihoon.model.param.BoardVO">
-		SELECT
-			  article_no as articleNo
-			, title
-			, content
-			, writer
-			, regdate
-			, viewcnt
-		FROM
-			  tbl_board
- 		<choose>
- 			<when test="searchOption == 'all'">
- 				WHERE
- 					 writer like '%' || #{keyword} || '%'
- 				AND
- 					content like '%' || #{keyword} || '%'
- 				AND
- 					title like '%' || #{keyword} || '%'
- 			</when>
- 			<otherwise>
- 				WHERE
- 					${searchOption} like '%' || #{keyword} || '%'
- 			</otherwise>
-		
- 		</choose>
-				AND
-			  		del_chk = 'N' 	
-		ORDER BY
-			  articleNo desc
-			, regdate desc
-
-    </select> -->
     
     <select id="listAll" resultType="main.java.com.kokihoon.model.param.BoardVO">
 	  	SELECT
@@ -56,8 +22,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	  		, viewcnt
 	  	FROM
 	  		tbl_board
-	  	WHERE
-	  		article_no > 0
+	  	<include refid="search"></include>
 	  	ORDER BY
 	  		article_no desc, regdate desc
 	  	LIMIT #{pageStart}, #{perPageNum}
@@ -68,10 +33,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  			  title
  			, content
  			, writer
+ 			, regdate
+ 			, update_date
  		) VALUES (
  		    #{title}
  		  , #{content}
  		  , #{writer}
+ 		  , sysdate()
+ 		  , sysdate()
  		)
  	</insert>
  	
@@ -96,6 +65,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  			  title = #{title}
  			, content = #{content}
  			, writer = #{writer}
+ 			, update_date = sysdate()
  		WHERE
  			  article_no = #{articleNo} 
  	</update>
@@ -110,22 +80,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	</update>
  	
  	<sql id="search">
- 		<choose>
- 			<when test="searchOption == 'all'">
- 				WHERE
- 					 writer like '%' || #{keyword} || '%'
- 				OR
- 					content like '%' || #{keyword} || '%'
- 				OR
- 					title like '%' || #{keyword} || '%'
- 			</when>
- 			<otherwise>
- 				WHERE
- 					${searchOption} like '%' || #{keyword} || '%'
- 			</otherwise>
-		
- 		</choose>
-				AND
-			  		del_chk = 'N' 	
+ 	WHERE 1=1
+ 		AND del_chk = 'N'
+		<if test="optionSearch != null">
+			<if test="optionSearch == 'title'.toString()">
+				and title like concat('%', #{keyword}, '%')
+			</if>
+			<if test="optionSearch == 'content'.toString()">
+				and content like concat('%', #{keyword}, '%')
+			</if>
+			<if test="optionSearch == 'writer'.toString()">
+				and writer like concat('%', #{keyword}, '%')
+			</if>
+			<if test="optionSearch == 'titleContent'.toString()">
+				and (title like concat('%', #{keyword}, '%')
+					or content like concat('%', #{keyword}, '%'))
+			</if>
+			<if test="optionSearch == 'all'.toString()">
+				and (title like concat('%', #{keyword}, '%')
+					or content like concat('%', #{keyword}, '%')
+					or writer like concat('%', #{keyword}, '%'))
+			</if>
+		</if>
+
  	</sql>
 </mapper>

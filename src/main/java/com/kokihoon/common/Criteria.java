@@ -5,9 +5,14 @@ public class Criteria {
     private int page;         // 보여줄 페이지 번호
     private int perPageNum;   // 페이지당 보여줄 게시글의 개수
     
+	private String optionSearch;
+	private String keyword;
+	
     public Criteria() {   // 최초 게시판에 진입할 때를 위해서 기본 값을 설정해야 함
         this.page = 1;
         this.perPageNum = 10;
+        this.optionSearch = null;
+        this.keyword = null;
     }
     
     public int getPage() {
@@ -39,6 +44,24 @@ public class Criteria {
     /* 마이바티스 조회쿼리의 #{pageStart}에 전달된다. */
 	public int getPageStart() {
 		return (this.page-1) * perPageNum;
+	}
+
+	
+	
+	public String getOptionSearch() {
+		return optionSearch;
+	}
+
+	public void setOptionSearch(String optionSearch) {
+		this.optionSearch = optionSearch;
+	}
+
+	public String getKeyword() {
+		return keyword;
+	}
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
 	}
 
 	@Override

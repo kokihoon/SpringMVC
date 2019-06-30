@@ -85,6 +85,7 @@ public class BoardController {
     	model.addAttribute("optionSearch", cri.getOptionSearch());
         model.addAttribute("pageMaker", pageMaker);
     	model.addAttribute("boardVO", boardVO);
+    	model.addAttribute("articleNo", articleNo);
     	
     	return "board/read";
     }

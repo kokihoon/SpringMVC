@@ -10,9 +10,184 @@
 
   <!-- 사용자 스크립트 추가 -->
   <th:block layout:fragment="script">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
     <script type="text/javascript" th:inline="javascript">
-    
+   
 	  $(document).ready(function() {
+		    var articleNo = [[${articleNo}]];  // 현재 게시글 번호
+		    var replyPageNum = 1; // 댓글 페이지 번호 초기화
+
+		 // 댓글 목록 페이지 번호 출력 함수
+		    function printPageNumbers(pageMaker) {
+
+		        var str = "";
+
+		        // 이전 버튼 활성화
+		        if (pageMaker.prev) {
+		            str += "<li><a href='"+(pageMaker.startPage-1)+"'>이전</a></li>";
+		        }
+
+		        // 페이지 번호
+		        for (var i = pageMaker.startPage, len = pageMaker.endPage; i <= len; i++) {
+		            var strCalss = pageMaker.cri.page == i ? 'class=active' : '';
+		            str += "<li "+strCalss+"><a href='"+i+"'>"+i+"</a></li>";
+		        }
+
+		        // 다음 버튼 활성화
+		        if (pageMaker.next) {
+		            str += "<li><a href='"+(pageMaker.endPage + 1)+"'>다음</a></li>";
+		        }
+
+		        $(".pagination-sm").html(str);
+		    }
+		    
+		 // 댓글 목록 페이징 함수
+		    function getRepliesPaging(page) {
+
+		        $.getJSON("/replies/" + [[${articleNo}]] + "/" + page, function (data) {
+		            console.log(data);
+
+		            var str = "";
+
+		            $(data.replies).each(function () {
+		                str += "<li data-replyNo='" + this.replyNo + "' class='replyLi'>"
+		                    +  "<p class='replyText'>" + this.replyText + "</p>"
+		                    +  "<p class='replyWriter'>" + this.replyWriter + "</p>";
+		                    
+		                    if([[${session.userId}]] == this.replyWriter) {
+		                      str +=  "<button type='button' class='btn btn-xs btn-success' data-toggle='modal' data-target='#modifyModal'>댓글 수정</button>";
+		                    }
+		                    
+		                    str +=  "</li>"
+		                    +  "<hr/>";
+		            });
+
+		            $("#replies").html(str);
+
+		            // 페이지 번호 출력 호출
+		            printPageNumbers(data.pageMaker);
+
+		        });
+
+		    }
+
+		 
+		 // 목록페이지 번호 클릭 이벤트
+		    $(".pagination").on("click", "li a", function (event) {
+
+		        event.preventDefault();
+		        replyPageNum = $(this).attr("href"); // 목록 페이지 번호 추출
+		        getRepliesPaging(replyPageNum); // 목록 페이지 호출
+
+		    });
+		    
+		    $("#replies").on("click", ".replyLi button", function () {
+		        var reply = $(this).parent();
+
+		        var replyNo = reply.attr("data-replyNo");
+		        var replyText = reply.find(".replyText").text();
+		        var replyWriter = reply.find(".replyWriter").text();
+
+		        $("#replyNo").val(replyNo);
+		        $("#replyText").val(replyText);
+		        $("#replyWriter").val(replyWriter);
+
+		    });
+		    
+		    $(".modalDelBtn").on("click", function () {
+
+		        // 댓글 번호
+		        var replyNo = $(this).parent().parent().find("#replyNo").val();
+
+		        // AJAX통신 : DELETE
+		        $.ajax({
+		            type : "delete",
+		            url : "/replies/" + replyNo,
+		            headers : {
+		                "Content-type" : "application/json",
+		                "X-HTTP-Method-Override" : "DELETE"
+		            },
+		            dataType : "text",
+		            success : function (result) {
+		                console.log("result : " + result);
+		                if (result == "delSuccess") {
+		                    alert("댓글 삭제 완료!");
+		                    $("#modifyModal").modal("hide"); // Modal 닫기
+		                    getRepliesPaging(replyPageNum); // 댓글 목록 갱신
+		                }
+		            }
+		        });
+
+		    });
+		    
+		    $(".modalModBtn").on("click", function () {
+
+		        // 댓글 선택자
+		        var reply = $(this).parent().parent();
+		        // 댓글번호
+		        var replyNo = reply.find("#replyNo").val();
+		        // 수정한 댓글내용
+		        var replyText = reply.find("#replyText").val();
+
+		        // AJAX통신 : PUT
+		        $.ajax({
+		            type : "put",
+		            url : "/replies/" + replyNo,
+		            headers : {
+		                "Content-type" : "application/json",
+		                "X-HTTP-Method-Override" : "PUT"
+		            },
+		            data : JSON.stringify(
+		                {replyText : replyText}
+		            ),
+		            dataType : "text",
+		            success : function (result) {
+		                console.log("result : " + result);
+		                if (result == "modSuccess") {
+		                    alert("댓글 수정 완료!");
+		                    $("#modifyModal").modal("hide"); // Modal 닫기
+		                    getRepliesPaging(replyPageNum); // 댓글 목록 갱신
+		                }
+		            }
+		        });
+
+		    });
+		    
+		    $("#replyAddBtn").on("click", function () {
+
+		        // 화면으로부터 입력 받은 변수값의 처리
+		        var replyText = $("#newReplyText");
+		        var replyWriter = $("#newReplyWriter");
+
+		        var replyTextVal = replyText.val();
+		        var replyWriterVal = replyWriter.val();
+
+		        // AJAX 통신 : POST
+		        $.ajax({
+		            type : "post",
+		            url : "/replies",
+		            headers : {
+		                "Content-type" : "application/json",
+		                "X-HTTP-Method-Override" : "POST"
+		            },
+		            dataType : "text",
+		            data : JSON.stringify({
+		                articleNo : articleNo,
+		                replyText : replyTextVal,
+		                replyWriter : replyWriterVal
+		            }),
+		            success : function (result) {
+		                // 성공적인 댓글 등록 처리 알림
+		                if (result == "regSuccess") {
+		                    alert("댓글 등록 완료!");
+		                }
+		                getRepliesPaging(replyPageNum); // 댓글 목록 출력 함수 호출
+		                replyText.val(""); // 댓글 내용 초기화
+		            }
+		        });
+		    });
+		    
+		    getRepliesPaging(replyPageNum);
 		$("#listAll").on("click", function(){
 			 
 		  var frm = $("<form>");
@@ -71,6 +246,8 @@
 	</script>
   </th:block>
 
+
+
   <div layout:fragment="content">
 	<!-- Content Wrapper. Contains page content -->
 	  <div class="content-wrapper">
@@ -127,8 +304,109 @@
 	          <!-- /.box -->
 	
 	    </section>
-	    <!-- /.content -->
-	  </div>
-	  <!-- /.content-wrapper -->
-	</div>
+<section class="content container-fluid">
+  <div class="col-lg-12">
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <h3 class="box-title">댓글 작성</h3>
+        </div>
+    <div th:if="${session.userId}">
+        <div class="box-body">
+            <div class="form-group">
+                <label for="newReplyText">댓글 내용</label>
+                <input class="form-control" id="newReplyText" name="replyText" placeholder="댓글 내용을 입력해주세요">
+            </div>
+            <div class="form-group">
+                <label for="newReplyWriter">댓글 작성자</label>
+                <input class="form-control" id="newReplyWriter" name="replyWriter" readonly th:value="${session.userId}" placeholder="댓글 작성자를 입력해주세요">
+            </div>
+            <div>
+	             <button id="replyAddBtn" class="btn btn-warning">댓글달기</button>
+            </div>
+        </div>
+        </div>
+        <div class="box-footer">
+            <ul id="replies">
+
+            </ul>
+        </div>
+        <div class="box-footer">
+            <div class="text-center">
+                <ul class="pagination pagination-sm no-margin">
+
+                </ul>
+            </div>
+        </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modifyModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">댓글 수정창</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="replyNo">댓글 번호</label>
+                    <input class="form-control" id="replyNo" name="replyNo" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="replyText">댓글 내용</label>
+                    <input class="form-control" id="replyText" name="replyText" placeholder="댓글 내용을 입력해주세요">
+                </div>
+                <div class="form-group">
+                    <label for="replyWriter">댓글 작성자</label>
+                    <input class="form-control" id="replyWriter" name="replyWriter" readonly>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">닫기</button>
+                <button type="button" class="btn btn-success modalModBtn">수정</button>
+                <button type="button" class="btn btn-danger modalDelBtn">삭제</button>
+            </div>
+        </div>
+    </div>
+  </div>
+
+<div class="modal fade" id="modifyModal" role="dialog">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">댓글 수정창</h4>
+          </div>
+          <div class="modal-body">
+              <div class="form-group">
+                  <label for="replyNo">댓글 번호</label>
+                  <input class="form-control" id="replyNo" name="replyNo" readonly>
+              </div>
+              <div class="form-group">
+                  <label for="replyText">댓글 내용</label>
+                  <input class="form-control" id="replyText" name="replyText" placeholder="댓글 내용을 입력해주세요">
+              </div>
+              <div class="form-group">
+                  <label for="replyWriter">댓글 작성자</label>
+                  <input class="form-control" id="replyWriter" name="replyWriter" readonly>
+              </div>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-default pull-left" data-dismiss="modal">닫기</button>
+              <button type="button" class="btn btn-success modalModBtn">수정</button>
+              <button type="button" class="btn btn-danger modalDelBtn">삭제</button>
+          </div>
+      </div>
+  </div>
+</div>
+
+</section>
+
+
+
+    </div>
+    
+</div>
 </html>
+
+

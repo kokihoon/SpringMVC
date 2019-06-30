@@ -93,9 +93,12 @@
 		                  <td th:text="${boardVO.viewcnt}">VIEWCNT</td>
 		                </tr>
 	                </tbody>
-	
 	              </table>
-	              <button><a th:href="|javascript:goWrite();|">등록</a></button>
+	              
+                  <div th:if="${session.userId}">
+		            <button><a th:href="|javascript:goWrite();|">등록</a></button>
+	              </div>
+	            
 	            </div>
 	            <div th:replace="fragments/paging :: pagingFragment"></div>
 	            <!-- /.box-body -->

@@ -6,10 +6,12 @@
   
     <div th:if="${session.userId}">
   	  [[${session.userId}]]님 <a href="/user/logout">로그아웃</a>
-  	  <a href="/board/list">게시판</a>
     </div>
     <div th:unless="${session.userId}">
-  	  <div>게스트님</div>
+  	  <div>
+  	 	 게스트님
+      </div>
     </div>
+          <a href="/board/list">게시판</a>
   </header>
 </html>

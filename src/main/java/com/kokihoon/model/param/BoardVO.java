@@ -11,6 +11,7 @@ public class BoardVO {
 	private Date regdate;
 	private Date update;
 	private int viewcnt;
+	private int recnt; // ´ñ±Û °³¼ö
 	
 	public int getArticleNo() {
 		return articleNo;
@@ -53,6 +54,12 @@ public class BoardVO {
 	}
 	public void setUpdate(Date update) {
 		this.update = update;
+	}
+	public int getRecnt() {
+		return recnt;
+	}
+	public void setRecnt(int recnt) {
+		this.recnt = recnt;
 	}
 	
 

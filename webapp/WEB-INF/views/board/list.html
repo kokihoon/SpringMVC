@@ -87,10 +87,13 @@
 	                <tbody>
 	              		<tr th:each="boardVO : ${list}">
 		                  <td th:text="${boardVO.articleNo}">BNO</td>
-		                  <td><a th:href="|javascript:goRead(${boardVO.articleNo});|" th:text="${boardVO.title}">TITLE</a></td>
+		                  <td>
+		                  	<a th:href="|javascript:goRead(${boardVO.articleNo});|" th:text="${boardVO.title}">TITLE</a>
+	   	                    <span class="badge bg-teal"><i class="fa fa-comment-o"></i> + [[${boardVO.replyCnt}]]</span>
+		                  </td>
 		                  <td th:text="${boardVO.writer}">WRITER</td>
 		                  <td th:text="${#dates.format(boardVO.regdate, 'yyyy-MM-dd HH:mm')}">REGDATE</td>
-		                  <td th:text="${boardVO.viewcnt}">VIEWCNT</td>
+		                  <td th:text="${boardVO.viewCnt}">VIEWCNT</td>
 		                </tr>
 	                </tbody>
 	              </table>

@@ -49,4 +49,21 @@ public class BoardDaoImpl implements BoardDao{
 	public int countArticle(Criteria cri) throws Exception{
 		return session.selectOne("board.countArticle", cri);
 	}
+
+	// 댓글 개수 업데이트
+	@Override
+	public int updateReplyCnt(Integer articleNo, int amount) throws Exception {
+		
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("articleNo", articleNo);
+		paramMap.put("amount", amount);
+		
+		return session.update("board.updateReplyCnt", paramMap);
+	}
+
+	// 조회수 업데이트
+	@Override
+	public int updateViewCnt(Integer articleNo) throws Exception {
+		return session.update("board.updateViewCnt", articleNo);
+	}
 }

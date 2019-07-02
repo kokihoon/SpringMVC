@@ -8,6 +8,8 @@ import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import main.java.com.kokihoon.common.Criteria;
 import main.java.com.kokihoon.dao.BoardDao;
@@ -36,9 +38,11 @@ public class BoardServiceImpl implements BoardService{
 		return boardDao.listAll(cri);
 	}
 	
-
+	// 조회수 증가 트랜잭션 적용
+	@Transactional(isolation = Isolation.READ_COMMITTED)
 	@Override
 	public BoardVO read(int articleNo) throws Exception {
+		boardDao.updateViewCnt(articleNo);
 		return boardDao.read(articleNo);
 	}
 

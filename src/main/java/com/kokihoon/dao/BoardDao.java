@@ -18,5 +18,11 @@ public interface BoardDao {
 	public void delete(int articleNo);
 
 	public int countArticle(Criteria cri) throws Exception;
+	
+	//댓글 개수 업데이트
+	public int updateReplyCnt(Integer articleNo, int amount) throws Exception;
+	
+	//조회수 업데이트
+	public int updateViewCnt(Integer articleNo) throws Exception;
 
 }

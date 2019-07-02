@@ -10,8 +10,8 @@ public class BoardVO {
 	private String writer;
 	private Date regdate;
 	private Date update;
-	private int viewcnt;
-	private int recnt; // ´ñ±Û °³¼ö
+	private int viewCnt;
+	private int replyCnt; // ´ñ±Û °³¼ö
 	
 	public int getArticleNo() {
 		return articleNo;
@@ -43,24 +43,23 @@ public class BoardVO {
 	public void setRegdate(Date regdate) {
 		this.regdate = regdate;
 	}
-	public int getViewcnt() {
-		return viewcnt;
-	}
-	public void setViewcnt(int viewcnt) {
-		this.viewcnt = viewcnt;
-	}
 	public Date getUpdate() {
 		return update;
 	}
 	public void setUpdate(Date update) {
 		this.update = update;
 	}
-	public int getRecnt() {
-		return recnt;
+	public int getViewCnt() {
+		return viewCnt;
 	}
-	public void setRecnt(int recnt) {
-		this.recnt = recnt;
+	public void setViewCnt(int viewCnt) {
+		this.viewCnt = viewCnt;
 	}
-	
+	public int getReplyCnt() {
+		return replyCnt;
+	}
+	public void setReplyCnt(int replyCnt) {
+		this.replyCnt = replyCnt;
+	}
 
 }

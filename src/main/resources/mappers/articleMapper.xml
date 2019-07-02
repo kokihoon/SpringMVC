@@ -19,7 +19,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	  		, content
 	  		, writer
 	  		, regdate
-	  		, viewcnt
+	  		, view_cnt as viewCnt
+	  		, reply_cnt as replyCnt
 	  	FROM
 	  		tbl_board
 	  	<include refid="search"></include>
@@ -51,7 +52,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  			  , content
  			  , writer
  			  , regdate
- 			  , viewcnt
+ 			  , view_cnt as viewCnt
  		FROM
  			  tbl_board
  		WHERE
@@ -77,6 +78,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  			del_chk = 'Y'
  		WHERE
  			  article_no = #{articleNo}
+ 	</update>
+ 	
+ 	
+ 	<update id="updateReplyCnt">
+ 		UPDATE
+ 			tbl_board
+ 		SET
+ 			reply_cnt = reply_cnt + #{amount}
+ 		WHERE
+ 			article_no = #{articleNo}
+ 	</update>
+ 	
+ 	<!-- 조회수 업데이트 -->
+ 	<update id="updateViewCnt">
+ 		UPDATE
+ 			tbl_board
+ 		SET
+ 			view_cnt = view_cnt + 1
+ 		WHERE
+ 			article_no = #{articleNo}
  	</update>
  	
  	<sql id="search">

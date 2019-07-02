@@ -12,4 +12,5 @@ public interface ReplyDao {
 	public List<ReplyVO> list(Integer articleNo, Criteria criteria) throws Exception;
 	public int countReply(Integer articleNo) throws Exception;
 	public List<ReplyVO> getReplies(Integer articleNo);
+	public int getArticleNo(Integer replyNo) throws Exception;
 }

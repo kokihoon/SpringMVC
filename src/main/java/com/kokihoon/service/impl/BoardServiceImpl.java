@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import main.java.com.kokihoon.common.Criteria;
 import main.java.com.kokihoon.dao.BoardDao;
+import main.java.com.kokihoon.dao.BoardFileDao;
 import main.java.com.kokihoon.model.param.BoardVO;
 import main.java.com.kokihoon.service.BoardService;
 
@@ -21,16 +22,22 @@ public class BoardServiceImpl implements BoardService{
 
 	@Autowired
 	BoardDao boardDao;
+	
+	@Autowired
+	BoardFileDao boardFileDao;
 
 	@Override
 	public void create(BoardVO vo) throws Exception {
-		String title = vo.getTitle();
-		String content = vo.getContent();
-		String writer = vo.getWriter();
-		vo.setTitle(title);
-		vo.setContent(content);
-		vo.setWriter(writer);
+
 		boardDao.create(vo);
+	    String[] files = vo.getFiles();
+
+	    if (files == null)
+	        return;
+
+	    // 게시글 첨부파일 입력처리
+	    for (String fileName : files)
+	        boardFileDao.addFile(fileName);
 	}
 
 	@Override
